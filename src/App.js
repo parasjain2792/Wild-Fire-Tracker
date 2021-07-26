@@ -1,7 +1,7 @@
-import Map from './Maps'
+import Map from './components/Maps'
 import { useState,useEffect} from 'react';
-import Loader from './Loader'
-import Header from './header';
+import Loader from './components/Loader'
+import Header from './components/header';
 
 function App() {
   const[nasa,setNasa]=useState([])
