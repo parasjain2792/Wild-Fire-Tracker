@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Map from './Maps'
+import { useState,useEffect} from 'react';
+import Loader from './Loader'
+import Header from './header';
 
 function App() {
+  const[nasa,setNasa]=useState([])
+  const [loding,setLoading]=useState(false)
+  useEffect(() =>{
+  const getEvents=async()=>{
+      setLoading(true)
+   const res=await fetch('https://eonet.sci.gsfc.nasa.gov/api/v3/events');
+   const {events}=await res.json();
+
+  setNasa(events);
+  setLoading(false);
+  }
+
+getEvents();
+
+  },[])
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+<div>
+     <Header/>
+    {!loding?<Map nasa={nasa}/>:<Loader/>}
+</div>
   );
 }
 
